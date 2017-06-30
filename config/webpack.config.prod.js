@@ -39,8 +39,9 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // To have this structure working with relative paths, we have to use custom options.
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   // Making sure that the publicPath goes back to to build folder.
-  ? { publicPath: Array(cssFilename.split('/').length).join('../') }
-  : undefined;
+  ? {
+    publicPath: Array(cssFilename.split('/').length).join('../')
+  } : undefined;
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -85,17 +86,10 @@ module.exports = {
       'react-native': 'react-native-web'
     }
   },
-  
+
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
-    preLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint',
-        include: paths.appSrc
-      }
-    ],
     loaders: [
       // ** ADDING/UPDATING LOADERS **
       // The "url" loader handles all assets unless explicitly excluded.
@@ -127,7 +121,10 @@ module.exports = {
         loader: 'babel',
         query: {
           plugins: [
-            ['import', [{ libraryName: "antd", style: true }]],
+            ['import', [{
+              libraryName: "antd",
+              style: true
+            }]],
           ]
         }
       },
@@ -146,18 +143,17 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
-          'style',
-          'css?importLoaders=1!postcss',
-          extractTextPluginOptions
-        )
-        // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
-      },
-      {
+            'style',
+            'css?importLoaders=1!postcss',
+            extractTextPluginOptions
+          )
+          // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+      }, {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(
-            'css?sourceMap&!' +
-            'postcss!' +
-            'less-loader?{"sourceMap":true,"modifyVars":{"@primary-color":"#404040"}}'
+          'css?sourceMap&!' +
+          'postcss!' +
+          'less-loader?{"sourceMap":true,"modifyVars":{"@primary-color":"#404040"}}'
         ),
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
@@ -178,7 +174,7 @@ module.exports = {
       // Remember to add the new extension(s) to the "url" loader exclusion list.
     ]
   },
-  
+
   // We use PostCSS for autoprefixing only.
   postcss: function() {
     return [

@@ -82,27 +82,10 @@ module.exports = {
       'react-native': 'react-native-web'
     }
   },
-  
+
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
-    preLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint',
-        enforce: 'pre',
-        use: [{
-          // @remove-on-eject-begin
-          // Point ESLint to our predefined config.
-          options: {
-            useEslintrc: true
-          },
-          // @remove-on-eject-end
-          loader: 'eslint-loader'
-        }],
-        include: paths.appSrc,
-      }
-    ],
     loaders: [
       // ** ADDING/UPDATING LOADERS **
       // The "url" loader handles all assets unless explicitly excluded.
@@ -140,7 +123,10 @@ module.exports = {
         loader: 'babel',
         query: {
           plugins: [
-            ['import', [{ libraryName: "antd", style: true }]],
+            ['import', [{
+              libraryName: "antd",
+              style: true
+            }]],
           ],
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -180,7 +166,7 @@ module.exports = {
       // Remember to add the new extension(s) to the "url" loader exclusion list.
     ]
   },
-  
+
   // We use PostCSS for autoprefixing only.
   postcss: function() {
     return [

@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import './style/lib/animate.css';
-import { Router, Route, hashHistory, IndexRedirect } from 'react-router';
+import {
+    Router,
+    Route,
+    hashHistory,
+    IndexRedirect
+} from 'react-router';
 import Page from './components/Page';
 import BasicForm from './components/forms/BasicForm';
 import BasicTable from './components/tables/BasicTables';
@@ -27,7 +32,7 @@ import BasicAnimations from './components/animation/BasicAnimations';
 import ExampleAnimations from './components/animation/ExampleAnimations';
 
 
-const Wysiwyg = (location, cb) => {     // 按需加载富文本配置
+const Wysiwyg = (location, cb) => { // 按需加载富文本配置
     require.ensure([], require => {
         cb(null, require('./components/ui/Wysiwyg').default);
     }, 'Wysiwyg');
@@ -35,7 +40,7 @@ const Wysiwyg = (location, cb) => {     // 按需加载富文本配置
 
 const routes =
     <Route path={'/'} components={Page}>
-        <IndexRedirect to="/login" />
+        <IndexRedirect to="app/dashboard/index" />
         <Route path={'app'} component={App}>
             <Route path={'form'}>
                 <Route path={'basicForm'} component={BasicForm} />
@@ -73,8 +78,8 @@ const routes =
 
 
 ReactDOM.render(
-  <Router history={hashHistory}>
+    <Router history={hashHistory}>
       {routes}
   </Router>,
-  document.getElementById('root')
+    document.getElementById('root')
 );
